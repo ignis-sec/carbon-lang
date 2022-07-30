@@ -78,20 +78,20 @@ jobs:
           clang++ --version
 
       # Extract our access key for our build cache.
-      - name: Extract access key
-        env:
-          GCP_BUILDS_SERVICE_ACCOUNT: ${{ secrets.GCP_BUILDS_SERVICE_ACCOUNT }}
-        run: |
-          echo "$GCP_BUILDS_SERVICE_ACCOUNT" \
-            | base64 -d > $HOME/gcp-builds-service-account.json
+      #- name: Extract access key
+      #  env:
+      #    GCP_BUILDS_SERVICE_ACCOUNT: ${{ secrets.GCP_BUILDS_SERVICE_ACCOUNT }}
+      #  run: |
+      #    echo "$GCP_BUILDS_SERVICE_ACCOUNT" \
+      #      | base64 -d > $HOME/gcp-builds-service-account.json
 
       # Add our bazel configuration and print basic info to ease debugging.
       - name: Configure Bazel and print info
         run: |
           cat >user.bazelrc <<EOF
           # Enable remote cache for our CI.
-          build --remote_cache=https://storage.googleapis.com/carbon-builds-github-${{ matrix.os }}
-          build --google_credentials=$HOME/gcp-builds-service-account.json
+          # build --remote_cache=https://storage.googleapis.com/carbon-builds-github-${{ matrix.os }}
+          # build --google_credentials=$HOME/gcp-builds-service-account.json
 
           # General build options.
           build --verbose_failures
